@@ -31,11 +31,13 @@ class GameViewModel : ViewModel() {
 
     // The current score
     var score = MutableLiveData<Int>()
-
+    var eventGameFinished = MutableLiveData<Boolean>()
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
+
     init {
+        eventGameFinished.value=false
         resetList()
         nextWord()
         score.value = 0
@@ -79,7 +81,7 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         //Select and remove a word from the list
         if (wordList.isEmpty()) {
-            //gameFinished()
+            eventGameFinished.value=true
         } else {
             word.value = wordList.removeAt(0)
         }
@@ -101,5 +103,10 @@ class GameViewModel : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         Log.i("GameViewModel", "GameViewModel destroyed!")
+    }
+
+    //eventGameFinished should occur once, fragment recreation shouldn't trigger it again. set its value to false
+    fun gameFinishedComplete(){
+        eventGameFinished.value = false
     }
 }
