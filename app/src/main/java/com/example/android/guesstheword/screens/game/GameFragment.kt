@@ -51,23 +51,18 @@ class GameFragment : Fragment() {
         // Get the viewmodel
         Log.i("GameFragment", "Called ViewModelProviders.of")
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-
-        binding.correctButton.setOnClickListener {
-            viewModel.onCorrect()
-        }
-        binding.skipButton.setOnClickListener {
-            viewModel.onSkip()
-        }
+        binding.gameViewModel = viewModel
+        binding.setLifecycleOwner(this)
 
         //set up observer relationship for the livedata and update ui everytime the subjects(livedata objects) change
-        viewModel.score.observe(this, Observer {newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
-
-        viewModel.word.observe(this, Observer {newWord ->
-            binding.wordText.text = newWord
-        })
-
+//        viewModel.score.observe(this, Observer {newScore ->
+//            binding.scoreText.text = newScore.toString()
+//        })
+//
+//        viewModel.word.observe(this, Observer {newWord ->
+//            binding.wordText.text = newWord
+//        })
+//
         viewModel.currentTime.observe(this, Observer { time ->
             binding.timerText.text = time.toString()
         })
