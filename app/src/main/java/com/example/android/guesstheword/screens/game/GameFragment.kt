@@ -63,9 +63,9 @@ class GameFragment : Fragment() {
 //            binding.wordText.text = newWord
 //        })
 //
-        viewModel.currentTime.observe(this, Observer { time ->
-            binding.timerText.text = time.toString()
-        })
+//        viewModel.currentTime.observe(this, Observer { time ->
+//            binding.timerText.text = time.toString()
+//        })
 
         viewModel.eventGameFinished.observe(this, Observer {hasFinished ->
             if(hasFinished){
